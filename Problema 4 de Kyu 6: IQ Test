@@ -1,0 +1,13 @@
+# Problema 4 de Kyu 6: IQ Test (retornar o indice+1 do elemento que foge do padrao (par ou impar) dos numeros da entrada)
+
+def iq_test(numbers):
+    vnumbers = numbers.split(" ")
+    lista = list(filter(lambda x: int(x)%2 == 0, vnumbers))   # lista recebe os elementos pares de vnumbers
+    
+    if len(lista) == 1:                                  # Se lista só tem um elemento, entao esse elemento é o PAR fora do padrao
+        position = vnumbers.index(lista[0])
+    else:                                               # Senao, entao o elemento fora do padrao é IMPAR e é o unico elemento que está em vnumbers mas nao está em lista
+        listaux = list(set(vnumbers) - set(lista))      # listaux recebe o unico elemento que esta em vnumbers e nao está em lista
+        position = vnumbers.index(listaux[0])    
+    
+    return position+1
