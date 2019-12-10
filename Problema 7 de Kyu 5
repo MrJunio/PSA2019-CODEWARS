@@ -1,0 +1,8 @@
+# Problema 7 de Kyu 5 : Escreva uma função, que use um número inteiro não negativo (segundos) 
+# como entrada e retorne a hora em um formato legível por humanos ( HH:MM:SS)
+
+def make_readable(seconds):
+    hours = (seconds - seconds%3600)/3600
+    minutes = (seconds%3600 - (seconds%3600)%60)/60
+    seconds =  (seconds%3600)%60
+    return "{:02}:{:02}:{:02}".format(int(hours), int(minutes), seconds)
