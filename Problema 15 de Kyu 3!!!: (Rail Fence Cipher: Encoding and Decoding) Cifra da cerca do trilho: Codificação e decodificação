@@ -1,0 +1,81 @@
+#Problema 15 de Kyu 3: (Rail Fence Cipher: Encoding and Decoding) Cifra da cerca do trilho: Codificação e decodificação
+
+#Crie duas funções para codificar e decodifique uma sequência usando a Cifra de cerca de trilho. 
+#Essa cifra é usada para codificar uma string, colocando cada caractere sucessivamente em uma 
+#diagonal ao longo de um conjunto de "trilhos". Primeiro comece movendo-se na diagonal e para baixo. 
+#Quando você chegar ao fundo, inverta a direção e mova-se na diagonal e para cima até chegar ao trilho superior. 
+#Continue até chegar ao final da string. Cada "trilho" é então lido da esquerda para a direita para derivar a sequência codificada.
+
+#Por exemplo, a cadeia "WEAREDISCOVEREDFLEEATONCE"pode ser representada em um sistema de três trilhos da seguinte maneira:
+#W       E       C       R       L       T       E
+#  E   R   D   S   O   E   E   F   E   A   O   C  
+#    A       I       V       D       E       N   
+#A cadeia codificada seria: WECRLTEERDSOEEFEAOCAIVDEN
+from math import floor # floor faz o arredondamento pra baixo de num numero decimal
+
+
+def encode_rail_fence_cipher(string, n):
+    vecout = []
+    num = 0
+    for i in range(n):
+        vecout.append([])
+    #Separando as letras e preenchendo as linhas de vecout
+    for i in range(len(string)):
+        if (num>=0):
+            vecout[num].append(string[i])
+            num+=1
+            if num == n: num = -2
+        elif (num<0):
+            vecout[num].append(string[i])
+            num-=1
+            if num == -(n+1): num = 1
+                
+    return ''.join(list(map(lambda x:''.join(vecout[x]) , range(len(vecout)))))
+
+
+    
+def decode_rail_fence_cipher(string, n):
+    SIZESTR = len(string)
+    num = floor(len(string)/(2*n-2)) # num = quantidade de intervalos de tamanho (2*n-2) que cabem na string
+    resto = len(string) - num*(2*n-2) # quanto falta para inteirar um num
+    vec = []
+
+    for i in range(n):
+        vec.append([])
+        
+    vec[0].append(string[0:num+(1 if resto>=1 else 0)])
+    string = string[num+(1 if resto>=1 else 0):]
+    
+    resto-=1
+    cont=1
+    while(1):
+        if cont == n-1:
+            vec[cont].append(string)
+            break
+        vec[cont].append(string[0:(2*num)+(1 if resto>=cont else 0)+(1 if resto >= 2*(n-1-cont)+cont else 0)]) #preenchendo linha n da matriz
+        string = string[(2*num)+(1 if resto>=cont else 0)+(1 if resto >= 2*(n-1-cont)+cont else 0):] # string agora é somente uma fatia da propria string
+        cont +=1
+        
+    
+    # Juntando novamente a palavra a partir da matriz, como no caso do encode
+    strout = ''
+    num = 0
+    for i in range(SIZESTR):
+        if (num>=0):
+            if len(str(vec[num][0]))==0:
+                continue
+            strout += str(vec[num][0])[0]
+            vec[num][0] = str(vec[num][0])[1:]
+            num+=1
+            if num == n: 
+                num = -2 
+        elif (num<0):
+            if len(str(vec[num][0]))==0:
+                continue
+            strout += str(vec[num][0])[0]
+            vec[num][0] = str(vec[num][0])[1:]
+            num-=1
+            if num == -(n+1): 
+                num = 1 
+        
+    return strout
