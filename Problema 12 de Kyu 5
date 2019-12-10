@@ -1,0 +1,7 @@
+# Problema 12 de Kyu 5: First non-repeating character (Considerando letra maiuscula diferente de minuscula)
+def first_non_repeating_letter(string):
+    stringU = string.upper()
+    for i in range(len(stringU)):
+        if stringU[i] not in (stringU[0:i]+stringU[i+1:]):    
+            return string[i]
+    return ''
