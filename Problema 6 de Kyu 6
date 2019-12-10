@@ -1,0 +1,35 @@
+# Problema 6 de Kyu 6: Retornar frase legivel para humanos, a partir de codigo morse
+
+import re
+def decodeMorse(morse_code):
+    MORSE_CODES = {'.-': 'A', '-...': 'B', '-.-.': 'C',
+                       '-..': 'D', '.': 'E', '..-.': 'F', 
+                       '--.': 'G', '....': 'H', '..': 'I', 
+                       '.---': 'J', '-.-': 'K', '.-..': 'L',
+                       '--': 'M', '-.': 'N', '---': 'O', 
+                       '.--.': 'P', '--.-': 'Q', '.-.': 'R',
+                       '...': 'S', '-': 'T', '..-': 'U',
+                       '...-': 'V', '.--': 'W', '-..-': 'X',
+                       '-.--': 'Y', '--..': 'Z', '/': ' ', 
+                        '.----':'1', '..---':'2', '...--':'3', 
+                        '....-':'4', '.....':'5', '-....':'6', 
+                        '--...':'7', '---..':'8', '----.':'9', 
+                        '-----':'0', '...---...': 'SOS'}
+    
+    morse_vect = re.split(r'   ', morse_code)       # morse_vect = vetor em que cada posicao representa uma palavra codificada em morse
+
+    morse_vect = list(filter(lambda x: x != "", morse_vect))    # remove os elementos vazios ("") entre palavras
+    #print(morse_vect)
+    ascii_code = ""
+    for i in range(len(morse_vect)):
+        asciiletters =  re.split(r' ', morse_vect[i])                            # asciiletters = vetor que contem as letras da i-ésima palavra que está em morse_vect[i]
+        #print(asciiletters)
+        asciiletters = list(filter(lambda x: x != "" , asciiletters))             # remove os elementos vazios ("") entre letras
+        #print(asciiletters)
+        ascii_code += "".join(list(map(lambda x: MORSE_CODES[x], asciiletters))) # Transformando em ascii cada letra da i-ésima palavra, e juntando em uma string todas as letras ascii
+        if i == len(morse_vect)-1:
+            break
+        ascii_code += " "
+    
+    
+    return ascii_code
