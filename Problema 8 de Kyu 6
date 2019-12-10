@@ -1,0 +1,28 @@
+# Problema 8 de Kyu 6: Caminhada de 10 minutos
+
+#Você mora na cidade de Cartesia, onde todas as estradas são dispostas em uma grade perfeita. 
+# Você chegou dez minutos cedo demais para um compromisso e decidiu aproveitar a oportunidade para fazer uma curta caminhada. 
+# A cidade fornece aos cidadãos um aplicativo de geração de passeio em seus telefones - sempre que você pressiona o botão, 
+# ele envia uma série de cadeias de caracteres de uma letra representando as direções para caminhar (por exemplo, ['n', 's', 'w', 'e']). 
+# Você sempre caminha apenas um único quarteirão em uma direção e sabe que leva um minuto para percorrer um quarteirão, portanto, 
+# crie uma função que retornará verdadeira se a caminhada que o aplicativo lhe der demorar exatamente dez minutos 
+# (você não quer chegar cedo ou tarde!) e, é claro, retornará ao seu ponto de partida. Retorne false caso contrário.
+
+def isValidWalk(walk):
+
+    if (len(walk) == 10):
+        DICT_POSITION = {'n':+1, 's':-1, 'e':+1, 'w':-1}
+        
+        northSouth = 0
+        eastWest = 0
+        
+        vetNorthSouth = list(filter(lambda x: ((x == 'n') or (x == 's')), walk)) # Pegando so os elementos 'n' e 's' para vetor
+        northSouth = sum(list(map(lambda x: DICT_POSITION[x], vetNorthSouth)))   # Somando os equivalentes de cada posição para uma posicao resultante em norte ou sul
+        
+        vetEastWest = list(filter(lambda x: ((x == 'e') or (x == 'w')), walk)) # Pegando apenas elementos 'e' e 'w' para o vetor
+        eastWest = sum(list(map(lambda x: DICT_POSITION[x], vetEastWest)))     # Somando os equivalentes de cada posicao para uma posicao resultante em leste ou oeste
+        
+        if ((northSouth == 0) and (eastWest == 0)):
+            return True
+        
+    return False  
