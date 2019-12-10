@@ -1,0 +1,11 @@
+# Problema 1: Contagem de bits (tranformar o inteiro de entrada em binário,
+# desconsiderando entradas negativas, e contar a quantidade de 1's que tem no número binário)
+
+def countBits(n):
+    if (n <  0):
+        n = -1*n
+    
+    binary = bin(n)[2:] 
+    qtd = binary.count('1')
+    
+    return qtd
