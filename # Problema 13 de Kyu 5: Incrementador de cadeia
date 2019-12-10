@@ -1,0 +1,13 @@
+# Problema 13 de Kyu 5: Incrementador de cadeia
+#Seu trabalho é escrever uma função que incrementa uma string, para criar uma nova string.
+#Se a sequência já terminar com um número, o número deverá ser incrementado em 1.
+#Se a sequência não terminar com um número. o número 1 deve ser anexado à nova sequência. 
+#Exemplo: foo -> foo1, foo099 -> foo100, foo9 -> foo10
+import re
+def increment_string(strng):
+    if(len(strng)>0): 
+        if strng[-1] in '0123456789': # Se o ultimo caracter da string for numerico, entao
+            numStr = re.findall(r'\d+', strng)[-1] # Pegue o numero de maior comprimento tal que termina na ultima posicao da string
+            return strng[0:-len(numStr)]+(len(numStr)-len(str((int(numStr)+1))))*'0'+str(int(numStr)+1) # Retorne (strng[0:posicao do numero])
+                                                                                                        # +(quantos 0's forem necessarios)+(numero+1)
+    return strng+'1'
