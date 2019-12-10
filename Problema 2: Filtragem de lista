@@ -1,0 +1,4 @@
+# Problema 2: Filtragem de lista (entra uma lista com elementos de tipos aleatórios e sai uma lista somente com os elementos inteiros da lista de entrada)
+
+def filter_list(l):
+    return list(filter(lambda x: type(x) is int, l))
