@@ -1,0 +1,6 @@
+# Problema 5 (Kyu 7): Trolls de Despedida (remover vogais das instrings dos trolls)
+import re
+def disemvowel(string):
+    string = ''.join(re.split(r'[aeiouAEIOU]',string)) # Separamos a string em uma lista, sendo as vogais os delimitadores dos elementos dessa lista
+                                                  # e usamos "".join() para juntas os elementos dessa lista novamente em uma string (agora sem vogais)
+    return string
