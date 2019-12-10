@@ -1,0 +1,17 @@
+# -*- coding: utf-8 -*-
+# Por causa dos comentários abaixo, o código não rodava sem o encoding acima
+
+# Problema 11 de Kyu 4: Próximo número maior com os mesmos dígitos
+#Você deve criar uma função que use um número inteiro positivo e 
+#retorne o próximo número maior formado pelos mesmos dígitos:
+
+def next_bigger(n):
+    listaStr = list(str(n))[::-1] # Inverteu-se a lista para evitar ter que caminhar em indices negativos no loop
+    for i in range(1,len(listaStr)):
+        listaAux = list(filter(lambda x: x>listaStr[i], listaStr[0:i])) # Pegou-se os numeros de menor casa decimal maiores que o i-ésimo numero
+        if len(listaAux)>0:
+            num = min(listaAux) # Pegou-se o menor dentre os números maiores que o í-seimo
+            listaStr[i], listaStr[listaStr.index(num)] = listaStr[listaStr.index(num)], listaStr[i] # Troucou-se as posicoes
+            listaStr = sorted(listaStr[:i])[::-1] + listaStr[i:] # Ordenou-se os numeros de menor casa decimal de forma decrescente
+            return int(''.join(listaStr[::-1]))  #Inverte-se a lista novamente (aqui os numeros decrescentes anteriores, agora são crescentes)  
+    return-1 
