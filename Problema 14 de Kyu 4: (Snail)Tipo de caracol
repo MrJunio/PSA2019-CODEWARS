@@ -1,0 +1,31 @@
+#Problema 14 de Kyu 4: (Snail)Tipo de caracol
+#Dada uma n x n matriz, retorne os elementos da matriz organizados dos elementos
+#mais externos para o elemento do meio, viajando no sentido horário.Ex: 
+#array = [[1,2,3],
+#         [4,5,6],
+#         [7,8,9]]
+#snail(array) #=> [1,2,3,6,9,8,7,4,5]
+
+def snail(matriz):
+    size = len(matriz)
+    if(size==1):
+        return matriz[0]
+    
+    matrizout = []
+    for m in range(size-1):       # A cada vez que entra no for, percorreremos uma matriz (n-m)x(n-m) ou seja sempre entra a proxima matriz interna
+        #for i in range(m , size-m):          # Percore a primeira linha da matriz (da esquerda para a direita)
+            #matrizout.append(matriz[m][i])
+            matrizout = matrizout + list(map(lambda i: matriz[m][i],list(range (m, size-m))))
+        #for j in range(1+m,size-m):          # Percorre a ultima coluna da matriz (de cima para baixo)
+            #matrizout.append(matriz[j][i])
+            matrizout = matrizout + list(map(lambda j: matriz[j][size-m-1],list(range (1+m, size-m))))
+        #for k in range(i-1, -1+m, -1):       # Percorre a ultima linha da matriz (da direita para a esquerda)
+         #   matrizout.append(matriz[j][k])
+            matrizout = matrizout + list(map(lambda k: matriz[size-m-1][k],list(range (size-m-1-1, -1+m, -1))))
+        #for l in range(j-1, m, -1):          # Percorre a primeira coluna da matriz (de baixo para cima)
+            #matrizout.append(matriz[l][m])
+            matrizout = matrizout + list(map(lambda l: matriz[l][m],list(range (size-m-1-1, m, -1))))
+    return(matrizout)
+    # TODAS AS LINHAS ACIMA FAZEM A MESMA FUNCAO QUE SEU RESPECTIVO FOR COMENTADO.
+    # FOI MELHOR USAR O map(lambda) POIS DEPENDENDO DO TAMANHO DA MATRIZ DE ENTRADA NxN
+    # O FOR PERDERIA MUITO EM EFICIENCIA
