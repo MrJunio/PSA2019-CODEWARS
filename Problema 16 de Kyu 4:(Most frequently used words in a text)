@@ -1,0 +1,52 @@
+#Problema 16 de Kyu 4:(Most frequently used words in a text) Palavras usadas com mais frequência em um texto
+
+
+#Escreva uma função que, dada uma sequência de texto (possivelmente com pontuação e quebras de linha), 
+#retorne uma matriz das três principais palavras mais ocorrentes, em ordem decrescente do número de ocorrências.
+#Suposições:
+#Uma palavra é uma sequência de letras (A a Z) contendo opcionalmente um ou mais apóstrofos (') em ASCII. 
+#(Não há necessidade de lidar com pontuação sofisticada.) As correspondências não diferenciam maiúsculas 
+#de minúsculas e as palavras no resultado devem estar em minúsculas.Os laços podem ser quebrados arbitrariamente.
+#Se um texto contiver menos de três palavras únicas, as palavras 2 ou 1 devem ser retornadas ou uma matriz vazia 
+#se um texto não contiver palavras.
+#Ex:
+# top_3_words("e e e e DDD ddd DdD: ddd ddd aa aA Aa, bb cc cC e e e")
+# => ["e", "ddd", "aa"]
+
+#Pontos de bônus (não realmente, mas apenas por diversão):
+#Evite criar uma matriz cujo tamanho da memória seja aproximadamente do tamanho do texto de entrada.
+#Evite classificar toda a matriz de palavras exclusivas.
+import re
+def top_3_words(text):
+    text = text.lower() # passando para minusculo
+    lista = re.findall(r'[a-z0-9\']+', text) #\'?[\d\w]+\'?[\d\w]+\'?
+    listavalues = []
+    listaout =[]
+    
+    if len(lista)>=1:
+        
+        listavalues = list(map(lambda x: lista.count(x), lista))
+        index = listavalues.index(max(listavalues))
+        listaout.append(lista[index])
+        word = lista[index]
+        for i in range(max(listavalues)):
+            listavalues.remove(max(listavalues))
+            lista.remove(word)
+    if len(listavalues)>=1:
+        listavalues = list(map(lambda x: lista.count(x), lista))
+        index = listavalues.index(max(listavalues))
+        listaout.append(lista[index])
+        word = lista[index]
+        for i in range(max(listavalues)):
+            listavalues.remove(max(listavalues))
+            lista.remove(word)
+    if len(listavalues)>=1:
+        listavalues = list(map(lambda x: lista.count(x), lista))
+        index = listavalues.index(max(listavalues))
+        listaout.append(lista[index])
+        word = lista[index]
+        for i in range(max(listavalues)):
+            listavalues.remove(max(listavalues))
+            lista.remove(word)
+
+    return [] if (listaout == ["'''"] or listaout == ["'"]) else listaout
