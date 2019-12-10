@@ -1,0 +1,41 @@
+# Problema 9 de Kyu 5: Peso por peso
+# Meu amigo John e eu somos membros do "Fat to Fit Club (FFC)". John está preocupado porque a cada mês uma lista 
+#com os pesos dos membros é publicada e a cada mês ele é o último da lista, o que significa que ele é o mais pesado.
+#Fui eu quem estabeleceu a lista, então eu disse a ele: "Não se preocupe mais, vou modificar a ordem da lista". 
+#Decidiu-se atribuir um "peso" aos números. O peso de um número será a partir de agora a soma de seus dígitos.
+#Por exemplo 99, terá "peso" 18, 100 terá "peso", 1 portanto na lista 100 virá antes 99. Dada uma sequência com os pesos 
+#dos membros do FFC em ordem normal, você pode atribuir essa sequência ordenada por "pesos" desses números?
+#Quando dois números têm o mesmo "peso", vamos classificá-los como se fossem strings (ordem alfabética) e não números: 
+#100 é anterior 180 porque seu "peso" (1) é menor que o de 180(9) e 180é anterior 90desde , tendo o mesmo "peso" (9), 
+#vem antes como uma string.
+
+import re
+def order_weight(strng):
+    if(len(strng)==0):
+        return strng
+    vetstrng = re.findall(r'\d+',strng) # vetor com os números de strng
+    #print(vetstrng)
+    vetstrngord = sorted(vetstrng)         # ordenando do menor para o maior em ordem alfabética
+    
+    vetweight = list(map(lambda x: sum(int(i) for i in x), vetstrngord)) # obtendo lista com a soma dos elementos de cada numero de vetstrng
+    vetkeyvalue = list(zip(vetstrngord, vetweight))   # lista com tuplas de dois elementos, onde o primeiro vem de vetstring (que será a chave) 
+                                                      # e o segundo vem de vetwight (que será o valor)
+    vetkeyvalue.sort(key=lambda x: x[1]) # ordenando a lista de tuplas pelo peso(valor) associado a cada numero
+    #vetkeys = sorted(vetkeyvalue, key = dict(vetkeyvalue).get) # lista com os numeros originais da string ordenados (keys ordenadas)
+    strngout = ""
+    i = 0
+    j = 0 
+    while(True):
+        print("aqui")
+        if(strng[i] == " "):
+            strngout += " "
+            i+=1
+        else:
+            strngout += vetkeyvalue[j][0]
+            #print(j)
+            #print(strngout)
+            i+=len(vetstrng[j])
+            j+=1
+        if i>=len(strng):
+            break
+    return strngout
