@@ -1,0 +1,21 @@
+# Problema 16 de Kyu 4: Directions Reduction
+def dirReduc(arr):
+    lista = list(arr)
+    #NORTH", "SOUTH", "WEST", "EAST
+    i = 0
+    while(1):
+        if i>=len(lista)-1:
+            break
+        if(lista[i] == "NORTH" and lista[i+1] == "SOUTH") or (lista[i] == "SOUTH" and lista[i+1] == "NORTH") or (lista[i] == "WEST" and lista[i+1] == "EAST") or (lista[i] == "EAST" and lista[i+1] == "WEST"):
+            print(lista)
+            print(i)
+            print(i+1)
+            print(lista.pop(i))
+            print(lista.pop(i))
+            print(lista)
+            i = 0
+            continue
+        i+=1
+        
+        
+    return lista
