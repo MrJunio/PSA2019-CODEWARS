@@ -1,0 +1,6 @@
+# Problema 3: Ordem Decrescente (pegar os numeros do inteiro de entrada e organizá-los de forma decrescente)
+def descending_order(num):
+    strnum = list(str(num))         #colocando cada algarismo de num dentro de uma lista de strings
+    strnum = sorted(strnum)[::-1]   # sorted ordena a lista de forma crescente, entao pegamos o inverso (decrescente) usando [::-1]
+    num = int("".join(strnum))      # concatenamos os numeros da lista decrescente e tranformamos em um tipo inteiro
+    return num
